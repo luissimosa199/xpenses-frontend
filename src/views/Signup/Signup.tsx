@@ -31,6 +31,7 @@ const Signup: FunctionComponent<SignupProps> = () => {
 
   const onSubmit: any = async () => {
     try {
+
       const response = await axios.post(
         `${REACT_APP_API_URL}user/signup`,
         {
@@ -47,9 +48,11 @@ const Signup: FunctionComponent<SignupProps> = () => {
 
       console.log(response)
 
-      // if (response?.status === 201) {
-      //   navigate("/login", { replace: true });
-      // }
+      if (response?.status === 201) {
+        localStorage.setItem("token", response?.data?.data?.token);
+        localStorage.setItem("name", response?.data?.data?.name);
+        navigate("/", { replace: true });
+      }
 
       return;
 
@@ -98,7 +101,7 @@ const Signup: FunctionComponent<SignupProps> = () => {
         variant="contained"
         aria-label="outlined primary button group"
       >
-        <Button size="large" fullWidth>
+        <Button size="large" fullWidth type='submit'>
           Registrarse
         </Button>
         <Button size="large" fullWidth>

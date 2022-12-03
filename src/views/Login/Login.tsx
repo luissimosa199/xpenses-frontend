@@ -44,7 +44,6 @@ const Login: FunctionComponent<LoginProps> = () => {
       );
 
       if (response?.status === 201) {
-        console.log(response);
         localStorage.setItem("token", response?.data?.data?.token);
         localStorage.setItem("name", response?.data?.data?.name);
         navigate("/", { replace: true });
