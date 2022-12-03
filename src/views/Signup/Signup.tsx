@@ -1,18 +1,19 @@
 import { FunctionComponent } from "react";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
-import { TextField } from "@mui/material";
-import { ButtonGroup } from "@mui/material";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { TextField, ButtonGroup, Button } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-const { REACT_API_URL } = process.env;
+const { REACT_APP_API_URL } = process.env;
 
 interface SignupProps {}
 
 const Signup: FunctionComponent<SignupProps> = () => {
+
+  const navigate = useNavigate();
+
   // FORMIK
   const initialValues = {
     signupName: "",
@@ -23,18 +24,18 @@ const Signup: FunctionComponent<SignupProps> = () => {
   const required = "* Campo requerido";
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().min(2, "Introduce al menos 2 letras").required(required),
-    email: Yup.string().email("Introduce un email válido").required(required),
+    signupName: Yup.string().min(2, "Introduce al menos 2 letras").required(required),
+    signupEmail: Yup.string().email("Introduce un email válido").required(required),
     password: Yup.string().required(required),
   });
 
   const onSubmit: any = async () => {
     try {
       const response = await axios.post(
-        `${REACT_API_URL}user/signup`,
+        `${REACT_APP_API_URL}user/signup`,
         {
-          signupName: values.signupName,
-          signupEmail: values.signupEmail,
+          name: values.signupName,
+          email: values.signupEmail,
           password: values.password,
         },
         {
@@ -44,7 +45,14 @@ const Signup: FunctionComponent<SignupProps> = () => {
         }
       );
 
-      return response;
+      console.log(response)
+
+      // if (response?.status === 201) {
+      //   navigate("/login", { replace: true });
+      // }
+
+      return;
+
     } catch (err) {
       throw Error("Error");
     }

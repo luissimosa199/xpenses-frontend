@@ -1,18 +1,18 @@
 import { FunctionComponent } from "react";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
-import { TextField } from "@mui/material";
-import { ButtonGroup } from "@mui/material";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { TextField, Button, ButtonGroup } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-const { REACT_API_URL } = process.env;
+const { REACT_APP_API_URL } = process.env;
 
 interface LoginProps {}
 
 const Login: FunctionComponent<LoginProps> = () => {
+  const navigate = useNavigate();
+
   // FORMIK
   const initialValues = {
     signupEmail: "",
@@ -22,15 +22,16 @@ const Login: FunctionComponent<LoginProps> = () => {
   const required = "* Campo requerido";
 
   const validationSchema = Yup.object().shape({
-    signupEmail: Yup.string().email("Introduce un email válido").required(required),
+    signupEmail: Yup.string()
+      .email("Introduce un email válido")
+      .required(required),
     password: Yup.string().required(required),
   });
 
   const onSubmit: any = async () => {
-
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/v1/user/login`,
+        `${REACT_APP_API_URL}user/login`,
         {
           email: values.signupEmail,
           password: values.password,
@@ -42,7 +43,12 @@ const Login: FunctionComponent<LoginProps> = () => {
         }
       );
 
-      return response;
+      if (response?.status === 201) {
+        console.log(response);
+        localStorage.setItem("token", response?.data?.data?.token);
+        localStorage.setItem("name", response?.data?.data?.name);
+        navigate("/", { replace: true });
+      }
     } catch (err) {
       throw Error(`Error: ${err}`);
     }
@@ -77,9 +83,7 @@ const Login: FunctionComponent<LoginProps> = () => {
         variant="contained"
         aria-label="outlined primary button group"
       >
-        <Button size="large" fullWidth type="submit" onClick={() => {
-          console.log('ERRORS: ', errors, 'VALUES: ', values)
-        }}>
+        <Button size="large" fullWidth type="submit">
           Entrar
         </Button>
         <Button size="large" fullWidth>
