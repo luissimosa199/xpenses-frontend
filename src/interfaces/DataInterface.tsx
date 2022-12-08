@@ -1,5 +1,5 @@
 export interface DataObject {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   date?: string;
