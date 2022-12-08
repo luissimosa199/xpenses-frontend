@@ -44,8 +44,11 @@ const Login: FunctionComponent<LoginProps> = () => {
       );
 
       if (response?.status === 201) {
+
+        // guardar los datos de usuario en un estado global
         localStorage.setItem("token", response?.data?.data?.token);
-        localStorage.setItem("name", response?.data?.data?.name);
+        localStorage.setItem("name", response?.data?.data?.user?.name);
+        localStorage.setItem("families", JSON.stringify(response?.data?.data?.user.families));
         navigate("/", { replace: true });
       }
     } catch (err) {

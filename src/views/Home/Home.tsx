@@ -1,9 +1,49 @@
 import { FunctionComponent } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Dashboard from "../../components/Dashbord/Dashboard";
+import DashboardError from "../../components/DashboardError/DashboardError";
+const { REACT_APP_API_URL } = process.env;
 
-interface HomeProps {}
+const token = localStorage.getItem("token");
+const families = JSON.parse(`${localStorage.getItem("families")}`)
 
-const Home: FunctionComponent<HomeProps> = () => {
-  return <h2>Home</h2>;
+const fetchBills = async () => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${REACT_APP_API_URL}bills?family=${families}`,
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    return res;
+  } catch (err: any) {
+    const error = err.response.data.data.error;
+    throw new Error(error);
+  }
+};
+
+const Home: FunctionComponent = () => {
+  const { isLoading, isError, data, error } = useQuery(["bills"], fetchBills);
+
+  const bills = data?.data?.data;
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return (
+      <DashboardError error={error} />
+    );
+  }
+
+  return (
+    <main>
+      <Dashboard data={bills} />
+    </main>
+  );
 };
 
 export default Home;
