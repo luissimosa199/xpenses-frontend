@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const StyledCard = styled.div`
+interface Props {
+  background?: "paid" | "notpaid" | "unknown";
+}
+
+export const StyledCard = styled.div<Props>`
   margin: 20px;
   padding: 20px;
   width: 150px;
@@ -11,7 +15,13 @@ export const StyledCard = styled.div`
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
   transition: all 0.2s;
 
-  background: radial-gradient(#B6D6F6, #A4CCF4);
+  background: ${(props) =>
+    (props.background === "unknown"
+      ? "radial-gradient(#cbcbcb, #b6b6b6);"
+      : props.background === "paid"
+      ? "radial-gradient(#B6D6F6, #A4CCF4);"
+      : "radial-gradient(#EBCACE, #ffd1d6);")
+      };
 
   &:hover {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
@@ -62,7 +72,8 @@ export const StyledCard = styled.div`
 
   & h4 {
     grid-row: 3/4;
-    font-weight: 400;
+    font-weight: 700;
+    letter-spacing: 2px;
     color: #ffffff;
     margin: 0;
     font-size: 2rem;
@@ -71,7 +82,7 @@ export const StyledCard = styled.div`
 
   & p {
     margin: 0;
-    color: #29333D;
+    color: #29333d;
   }
 
   & .card-info {
@@ -80,15 +91,15 @@ export const StyledCard = styled.div`
   }
 
   & .card-info > * {
-    margin: .3rem 0;
+    margin: 0.3rem 0;
   }
 
   & .card-info-desc {
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   & .card-info-date {
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   & .card-info-amount {

@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import IconButton from "../containers/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { statusColor } from "../../utils/statusColor";
 
 interface CardProps {
   info: DataObject;
@@ -14,7 +15,7 @@ interface CardProps {
 const Card: FunctionComponent<CardProps> = ({ info }) => {
   return (
     <li>
-      <StyledCard>
+      <StyledCard background={info.status}>
         <div className="card-icon">
           <i>I</i>
         </div>
@@ -31,10 +32,10 @@ const Card: FunctionComponent<CardProps> = ({ info }) => {
           <h4>{info.name}</h4>
           <p className="card-info-desc">{info.description}</p>
           <p className="card-info-date">{info.date}</p>
-          <Button variant="outlined" color="info">
+          <Button variant="outlined" color={statusColor(info.status)}>
             {info.status}
           </Button>
-          <p className="card-info-amount">{info.amount}</p>
+          <p className="card-info-amount">${info.amount}</p>
         </div>
         <p className="card-update">
           <a className="card-link">
