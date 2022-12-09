@@ -4,6 +4,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from "../containers/IconButton";
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
+import { StyledLink } from "../containers/StyledLink";
 
 const Header: FunctionComponent = () => {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ const Header: FunctionComponent = () => {
     navigate("/login", { replace: true });
   };
 
+  const handleAddNewBill = () => {
+    navigate("/addnewbill", { replace: true });
+  }
+
   return (
     <StyledHeader>
       <h1>XPenses</h1>
@@ -21,11 +26,11 @@ const Header: FunctionComponent = () => {
       {/* add chained valitadation: if logged show nav... */}
       <nav>
         <ul>
-          <li>Family</li>
-          <li>Details</li>
-          <li>History</li>
+          <StyledLink to="/family">Family</StyledLink>
+          <StyledLink to="/details">Details</StyledLink>
+          <StyledLink to="/history">History</StyledLink>
           <li className="btn-add">
-            <IconButton onClick={() => {console.log('CLICKED ADD')}}>
+            <IconButton onClick={handleAddNewBill}>
               <AddIcon/>
             </IconButton>
           </li>

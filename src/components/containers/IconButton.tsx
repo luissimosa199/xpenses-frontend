@@ -12,6 +12,11 @@ const Button = styled.button`
     border: none;
     cursor: pointer;
     margin-left: auto;
+    transition: all 200ms ease;
+
+    &:hover {
+        opacity: 0.7;
+    }
 
 `
  

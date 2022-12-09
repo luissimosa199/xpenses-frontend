@@ -12,6 +12,7 @@ import Login from "./views/Login/Login";
 import Signup from "./views/Signup/Signup";
 import { RequireAuth } from "./utils/RequireAuth";
 import Home from "./views/Home/Home";
+import AddNewBill from "./views/AddNewBill/AddNewBill";
 // import Details from "./views/Details/Details";
 // import History from "./views/History/History";
 // import NotFound404 from "./views/NotFound404/NotFound404";
@@ -50,6 +51,15 @@ function App() {
                 <RequireAuth>
                   <Home />
                 </RequireAuth>
+              </MotionComponent>
+            }
+          />
+
+          <Route
+            path="/addnewbill"
+            element={
+              <MotionComponent>
+                <AddNewBill />
               </MotionComponent>
             }
           />

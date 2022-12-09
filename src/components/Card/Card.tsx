@@ -7,6 +7,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import IconButton from "../containers/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { statusColor } from "../../utils/statusColor";
+import { Link } from "react-router-dom";
 
 interface CardProps {
   info: DataObject;
@@ -38,7 +39,7 @@ const Card: FunctionComponent<CardProps> = ({ info }) => {
           <p className="card-info-amount">${info.amount}</p>
         </div>
         <p className="card-update">
-          <a href='#' className="card-link">
+          <Link to='/link?' className="card-link">
             <IconButton
               onClick={() => {
                 console.log("CLICK");
@@ -46,7 +47,7 @@ const Card: FunctionComponent<CardProps> = ({ info }) => {
             >
               <MoreHorizIcon />
             </IconButton>
-          </a>
+          </Link>
         </p>
       </StyledCard>
     </li>
