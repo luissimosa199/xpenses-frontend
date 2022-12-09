@@ -6,6 +6,7 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  FormHelperText,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -62,6 +63,8 @@ const PasswordInput: FunctionComponent<PasswordInputProps> = ({
           </InputAdornment>
         }
       />
+      {error && <FormHelperText>{`${error}`}</FormHelperText>}
+      
     </FormControl>
   );
 };
