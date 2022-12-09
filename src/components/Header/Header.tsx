@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import { StyledHeader } from "./Header.styled";
 import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from "../containers/IconButton";
+import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
 
 const Header: FunctionComponent = () => {
@@ -23,6 +24,11 @@ const Header: FunctionComponent = () => {
           <li>Family</li>
           <li>Details</li>
           <li>History</li>
+          <li className="btn-add">
+            <IconButton onClick={() => {console.log('CLICKED ADD')}}>
+              <AddIcon/>
+            </IconButton>
+          </li>
         </ul>
       </nav>
 

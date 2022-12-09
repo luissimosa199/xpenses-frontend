@@ -14,6 +14,7 @@ export const StyledHeader = styled.header`
   ul {
     list-style-type: none;
     display: flex;
+    align-items: center;
     gap: 1rem;
   }
 
@@ -21,5 +22,27 @@ export const StyledHeader = styled.header`
     display: flex;
 
     margin-left: auto;
+  }
+
+  & .btn-add {
+  }
+
+  & .btn-add::after {
+    content: "Agregar una factura";
+    transition: all 500ms ease;
+    opacity: 0;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    font-size: 0.9rem;
+    color: #454545;
+    padding: 0.3rem;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+    background: radial-gradient(#b6d6f6, #a4ccf4);
+  }
+
+  & .btn-add:hover::after {
+    opacity: 1;
   }
 `;
