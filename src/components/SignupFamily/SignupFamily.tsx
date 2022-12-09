@@ -5,6 +5,8 @@ import { StyledForm } from "../../components/containers/AuthForm.styled";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
+import axios from "axios";
+const { REACT_APP_API_URL } = process.env;
 
 interface SignupFamilyProps {
     
@@ -27,7 +29,23 @@ const SignupFamily: FunctionComponent<SignupFamilyProps> = () => {
 
   const onSubmit: any = async () => {
     try {
-      console.log("hey");
+        const response = await axios.post(
+            `${REACT_APP_API_URL}family/signup`,
+            {
+              email: values.familyName,
+              password: values.password,
+            },
+            {
+              headers: {
+                "content-type": "application/json",
+              },
+            }
+          );
+    
+          if (response?.status === 201) {
+            // crear familia y suscribir al usuario.
+            console.log(response.data)
+          }
     } catch (err) {
       throw Error(`${err}`);
     }

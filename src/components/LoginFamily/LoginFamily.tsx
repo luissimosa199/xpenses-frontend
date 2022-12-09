@@ -5,6 +5,8 @@ import { StyledForm } from "../../components/containers/AuthForm.styled";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
+import axios from "axios";
+const { REACT_APP_API_URL } = process.env;
 
 interface LoginFamilyProps {}
 
@@ -24,7 +26,23 @@ const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
 
   const onSubmit: any = async () => {
     try {
-      console.log("hey");
+        const response = await axios.post(
+            `${REACT_APP_API_URL}family/login`,
+            {
+              email: values.familyName,
+              password: values.password,
+            },
+            {
+              headers: {
+                "content-type": "application/json",
+              },
+            }
+          );
+    
+          if (response?.status === 201) {
+            // suscribir al usuario a la familia.
+            console.log(response.data)
+          }
     } catch (err) {
       throw Error(`${err}`);
     }
