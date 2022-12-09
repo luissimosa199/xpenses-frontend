@@ -16,7 +16,8 @@ import AddNewBill from "./views/AddNewBill/AddNewBill";
 import NotFound404 from "./views/NotFound404/NotFound404";
 import Details from "./views/Details/Details";
 import History from "./views/History/History";
-import Family from "./views/Family/Family";
+import LoginFamily from "./components/LoginFamily/LoginFamily";
+import SignupFamily from "./components/SignupFamily/SignupFamily";
 // import Details from "./views/Details/Details";
 // import History from "./views/History/History";
 // import NotFound404 from "./views/NotFound404/NotFound404";
@@ -60,11 +61,22 @@ function App() {
           />
 
           <Route
-            path="/family"
+            path="/family/login"
             element={
               <MotionComponent>
                 <RequireAuth>
-                  <Family />
+                  <LoginFamily />
+                </RequireAuth>
+              </MotionComponent>
+            }
+          />
+
+          <Route
+            path="/family/signup"
+            element={
+              <MotionComponent>
+                <RequireAuth>
+                  <SignupFamily />
                 </RequireAuth>
               </MotionComponent>
             }

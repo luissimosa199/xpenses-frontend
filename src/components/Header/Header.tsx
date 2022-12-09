@@ -26,7 +26,7 @@ const Header: FunctionComponent = () => {
       <nav>
         <ul>
           <li>
-            <StyledLink to="/family">Family</StyledLink>
+            <StyledLink to="/family/login">Family</StyledLink>
           </li>
           <li>
             <StyledLink to="/details">Details</StyledLink>
