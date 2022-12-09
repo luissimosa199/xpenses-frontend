@@ -1,8 +1,12 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import React from "react";
 
-const StyledNavLink = styled.li`
+const StyledNavLink = styled.div`
+
+  list-style-type: none;
+
   & a {
     text-decoration: none;
     color: inherit;

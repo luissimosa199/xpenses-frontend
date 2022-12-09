@@ -13,6 +13,10 @@ import Signup from "./views/Signup/Signup";
 import { RequireAuth } from "./utils/RequireAuth";
 import Home from "./views/Home/Home";
 import AddNewBill from "./views/AddNewBill/AddNewBill";
+import NotFound404 from "./views/NotFound404/NotFound404";
+import Details from "./views/Details/Details";
+import History from "./views/History/History";
+import Family from "./views/Family/Family";
 // import Details from "./views/Details/Details";
 // import History from "./views/History/History";
 // import NotFound404 from "./views/NotFound404/NotFound404";
@@ -56,6 +60,17 @@ function App() {
           />
 
           <Route
+            path="/family"
+            element={
+              <MotionComponent>
+                <RequireAuth>
+                  <Family />
+                </RequireAuth>
+              </MotionComponent>
+            }
+          />
+
+          <Route
             path="/addnewbill"
             element={
               <MotionComponent>
@@ -64,32 +79,32 @@ function App() {
             }
           />
 
-          {/* <Route
+          <Route
             path="/details"
             element={
               <MotionComponent>
                 <Details />
               </MotionComponent>
             }
-          /> */}
+          />
 
-          {/* <Route
+          <Route
             path="/history"
             element={
               <MotionComponent>
                 <History />
               </MotionComponent>
             }
-          /> */}
+          />
 
-          {/* <Route
+          <Route
             path="*"
             element={
               <MotionComponent>
                 <NotFound404 />
               </MotionComponent>
             }
-          /> */}
+          />
         </Routes>
       </AnimatePresence>
     </div>
