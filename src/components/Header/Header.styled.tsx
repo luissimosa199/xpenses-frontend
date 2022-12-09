@@ -16,4 +16,10 @@ export const StyledHeader = styled.header`
     display: flex;
     gap: 1rem;
   }
+
+  & > div {
+    display: flex;
+
+    margin-left: auto;
+  }
 `;

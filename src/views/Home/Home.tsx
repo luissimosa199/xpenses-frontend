@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Dashboard from "../../components/Dashbord/Dashboard";
 import DashboardError from "../../components/DashboardError/DashboardError";
+import DashboardLoader from "../../components/DashboardLoader/DashboardLoader";
 const { REACT_APP_API_URL } = process.env;
 
 const token = localStorage.getItem("token");
@@ -30,7 +31,7 @@ const Home: FunctionComponent = () => {
   const bills = data?.data?.data;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <DashboardLoader/>;
   }
 
   if (isError) {

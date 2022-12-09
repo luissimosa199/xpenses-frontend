@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import { DataObject } from "../../interfaces/DataInterface";
 import Card from "../Card/Card";
+import DashboardLoader from "../DashboardLoader/DashboardLoader";
 import { StyledCardList } from "./Dashboard.styled";
 
 interface DashboardProps {
@@ -15,7 +16,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({ data }) => {
           <Card key={e._id} info={e} />
         ))
       ) : (
-        <p>Cargando...</p>
+        <DashboardLoader/>
       )}
     </StyledCardList>
   );

@@ -26,9 +26,12 @@ const Header: FunctionComponent = () => {
         </ul>
       </nav>
 
-      <IconButton onClick={handleLogout}>
-        <LogoutIcon />
-      </IconButton>
+      <div>
+        <p>{localStorage.getItem("name")}</p>
+        <IconButton onClick={handleLogout}>
+          <LogoutIcon />
+        </IconButton>
+      </div>
     </StyledHeader>
   );
 };

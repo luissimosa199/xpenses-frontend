@@ -38,7 +38,7 @@ const Card: FunctionComponent<CardProps> = ({ info }) => {
           <p className="card-info-amount">${info.amount}</p>
         </div>
         <p className="card-update">
-          <a className="card-link">
+          <a href='#' className="card-link">
             <IconButton
               onClick={() => {
                 console.log("CLICK");
