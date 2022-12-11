@@ -20,7 +20,9 @@ export const StyledHeader = styled.header`
 
   & > div {
     display: flex;
+  }
 
+  & .flex-end {
     margin-left: auto;
   }
 

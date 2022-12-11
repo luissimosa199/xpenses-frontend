@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Button, ButtonGroup, TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -11,6 +11,8 @@ const { REACT_APP_API_URL } = process.env;
 interface LoginFamilyProps {}
 
 const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
+  const navigate = useNavigate();
+
   // FORMIK
   const initialValues = {
     familyName: "",
@@ -26,24 +28,28 @@ const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
 
   const onSubmit: any = async () => {
     try {
-        const response = await axios.post(
-            `${REACT_APP_API_URL}family/login`,
-            {
-              email: values.familyName,
-              password: values.password,
-            },
-            {
-              headers: {
-                "content-type": "application/json",
-              },
-            }
-          );
-    
-          if (response?.status === 201) {
-            // suscribir al usuario a la familia.
-            console.log(response.data)
-          }
+      const response = await axios.post(
+        `${REACT_APP_API_URL}family/login`,
+        {
+          name: values.familyName,
+          password: values.password,
+          // HARDCODED USER ID
+          user_id: "63877baec3c40609aa5bbda4",
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+
+      if (response?.status === 201) {
+        // abrir modal de confirmacion
+        navigate("/", { replace: true });
+        console.log(response.data);
+      }
     } catch (err) {
+      // abrir modal de error
       throw Error(`${err}`);
     }
   };

@@ -8,6 +8,10 @@ export const StyledForm = styled.form`
     max-width: 400px;
     margin: 2rem auto;
 
+    & .form-switch {
+        /* border: 1px solid black; */
+    }
+
     @media (max-width: 700px) {
         width: 80%;
     }

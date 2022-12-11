@@ -42,7 +42,7 @@ const Header: FunctionComponent = () => {
         </ul>
       </nav>
 
-      <div>
+      <div className="flex-end">
         <p>{localStorage.getItem("name")}</p>
         <IconButton onClick={handleLogout}>
           <LogoutIcon />
