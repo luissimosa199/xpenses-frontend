@@ -12,6 +12,11 @@ export const StyledForm = styled.form`
         /* border: 1px solid black; */
     }
 
+    & .MuiInputAdornment-root {
+        position: absolute;
+        right: -40px;
+    }
+
     @media (max-width: 700px) {
         width: 80%;
     }

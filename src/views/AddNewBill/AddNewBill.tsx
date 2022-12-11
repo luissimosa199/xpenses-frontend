@@ -1,18 +1,11 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
-import {
-  TextField,
-  Button,
-  ButtonGroup,
-  MenuItem,
-  FormGroup,
-  Switch,
-  FormControlLabel,
-} from "@mui/material";
+import { TextField, Button, ButtonGroup, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import SelectWithSwitch from "../../components/SelectWithSwitch/SelectWithSwitch";
 const { REACT_APP_API_URL } = process.env;
 const token = localStorage.getItem("token");
 
@@ -20,9 +13,6 @@ interface AddNewBillProps {}
 
 const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
   const navigate = useNavigate();
-
-  const [newName, setNewName] = useState(false);
-  const [newDescription, setDescription] = useState(false);
 
   // FORMIK
   const initialValues = {
@@ -81,6 +71,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
   };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
+
   const {
     handleSubmit,
     handleChange,
@@ -93,75 +84,25 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <FormGroup className="form-switch">
-        <FormControlLabel
-          control={<Switch size="small" value={newName} onChange={() => {setNewName(!newName)}} />}
-          label="Nuevo nombre"
-        />
-      </FormGroup>
-      {newName ? (
-        <TextField
-          id="name"
-          name="name"
-          label="Nombre"
-          variant="outlined"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.name && Boolean(errors.name)}
-          helperText={touched.name && errors.name}
-        />
-      ) : (
-        <TextField
-          select
-          id="name"
-          name="name"
-          label="Nombre"
-          variant="outlined"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.name && Boolean(errors.name)}
-          helperText={touched.name && errors.name}
-        >
-          <MenuItem value="opciones">Opciones</MenuItem>
-        </TextField>
-      )}
+      <SelectWithSwitch
+        name="name"
+        label="Nombre"
+        value={values.name}
+        handleChange={handleChange}
+        handleBlur={handleBlur}
+        error={errors.name}
+        touched={touched.name}
+      />
 
-      <FormGroup className="form-switch">
-        <FormControlLabel
-          control={<Switch size="small" value={newDescription} onChange={() => {setDescription(!newDescription)}} />}
-          label="Nueva categoria"
-        />
-      </FormGroup>
-      {newDescription ? (
-        <TextField
-          name="description"
-          id="description"
-          label="Descripción"
-          variant="outlined"
-          value={values.description}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.name && Boolean(errors.description)}
-          helperText={touched.description && errors.description}
-        />
-      ) : (
-        <TextField
-          select
-          name="description"
-          id="description"
-          label="Descripción"
-          variant="outlined"
-          value={values.description}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.name && Boolean(errors.description)}
-          helperText={touched.description && errors.description}
-        >
-          <MenuItem value="opciones">Opciones</MenuItem>
-        </TextField>
-      )}
+      <SelectWithSwitch
+        name="description"
+        label="Descripcion"
+        value={values.description}
+        handleChange={handleChange}
+        handleBlur={handleBlur}
+        error={errors.description}
+        touched={touched.description}
+      />
 
       <TextField
         id="date"
