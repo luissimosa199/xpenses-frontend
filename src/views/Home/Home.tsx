@@ -1,15 +1,18 @@
 import { FunctionComponent } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Dashboard from "../../components/Dashbord/Dashboard";
+import Dashboard from "../../components/Dashboard/Dashboard";
 import DashboardError from "../../components/DashboardError/DashboardError";
 import DashboardLoader from "../../components/DashboardLoader/DashboardLoader";
 const { REACT_APP_API_URL } = process.env;
-
 const token = localStorage.getItem("token");
-const families = JSON.parse(`${localStorage.getItem("families")}`)
+const families = JSON.parse(`${localStorage.getItem("families")}`);
+import { useNavigate } from "react-router-dom";
 
 const fetchBills = async () => {
+
+  const navigate = useNavigate();
+
   try {
     const res = await axios({
       method: "get",
@@ -18,10 +21,17 @@ const fetchBills = async () => {
         Authorization: "Bearer " + token,
       },
     });
+
     return res;
   } catch (err: any) {
-    const error = err.response.data.data.error;
-    throw new Error(error);
+
+    if (err.response.data.status === 401){
+      localStorage.removeItem("name");
+      localStorage.removeItem("token");
+      localStorage.removeItem("families");
+      navigate("/login", { replace: true });
+    }
+    throw new Error(err);
   }
 };
 
@@ -31,13 +41,11 @@ const Home: FunctionComponent = () => {
   const bills = data?.data?.data;
 
   if (isLoading) {
-    return <DashboardLoader/>;
+    return <DashboardLoader />;
   }
 
   if (isError) {
-    return (
-      <DashboardError error={error} />
-    );
+    return <DashboardError error={error} />;
   }
 
   return (

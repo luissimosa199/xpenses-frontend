@@ -12,6 +12,7 @@ const Header: FunctionComponent = () => {
   const handleLogout = () => {
     localStorage.removeItem("name");
     localStorage.removeItem("token");
+    localStorage.removeItem("families");
     navigate("/login", { replace: true });
   };
 
