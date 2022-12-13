@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import TextFieldSelect from "./TextFieldSelect";
+import { StyledFormControl } from "./FormControl.styled";
 
 interface SelectWithSwitchProps {
   name: string;
@@ -38,7 +39,7 @@ const SelectWithSwitch: FunctionComponent<SelectWithSwitchProps> = ({
   };
 
   return (
-    <FormControl>
+    <StyledFormControl>
       {newDescription ? (
         <>
           <InputLabel htmlFor={name} color={error ? "error" : "info"}>
@@ -77,7 +78,7 @@ const SelectWithSwitch: FunctionComponent<SelectWithSwitchProps> = ({
           newDescription={newDescription}
         />
       )}
-    </FormControl>
+    </StyledFormControl>
   );
 };
 
