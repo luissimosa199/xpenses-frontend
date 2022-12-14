@@ -1,10 +1,13 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
-interface DetailsProps {
-    
-}
  
-const Details: FunctionComponent<DetailsProps> = () => {
+const Details: FunctionComponent = () => {
+
+        const { userState } = useContext(UserContext)
+
+        console.log(userState)
+
     return ( <h2>Details</h2> );
 }
  

@@ -7,11 +7,8 @@ import DashboardLoader from "../../components/DashboardLoader/DashboardLoader";
 const { REACT_APP_API_URL } = process.env;
 const token = localStorage.getItem("token");
 const families = JSON.parse(`${localStorage.getItem("families")}`);
-import { useNavigate } from "react-router-dom";
 
 const fetchBills = async () => {
-
-  const navigate = useNavigate();
 
   try {
     const res = await axios({
@@ -29,7 +26,7 @@ const fetchBills = async () => {
       localStorage.removeItem("name");
       localStorage.removeItem("token");
       localStorage.removeItem("families");
-      navigate("/login", { replace: true });
+      window.location.reload()
     }
     throw new Error(err);
   }

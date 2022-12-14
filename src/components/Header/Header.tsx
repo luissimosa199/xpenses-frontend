@@ -1,12 +1,16 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { StyledHeader } from "./Header.styled";
 import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from "../containers/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import { StyledLink } from "../containers/StyledLink";
+import { UserContext } from "../../context/UserContext";
 
 const Header: FunctionComponent = () => {
+
+  const { userState } = useContext(UserContext)
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -23,7 +27,9 @@ const Header: FunctionComponent = () => {
   return (
     <StyledHeader>
       <StyledLink to='/'><h1>XPenses</h1></StyledLink>
-      {/* add chained valitadation: if logged show nav... */}
+
+      {userState.user.isLogged && 
+      <>
       <nav>
         <ul>
           <li>
@@ -49,6 +55,8 @@ const Header: FunctionComponent = () => {
           <LogoutIcon />
         </IconButton>
       </div>
+      </>}
+
     </StyledHeader>
   );
 };
