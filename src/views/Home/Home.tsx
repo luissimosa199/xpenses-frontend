@@ -13,7 +13,7 @@ const fetchBills = async () => {
   try {
     const res = await axios({
       method: "get",
-      url: `${REACT_APP_API_URL}bills?family=${families}`,
+      url: `${REACT_APP_API_URL}bills?family=${families[0]}`,
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -21,13 +21,6 @@ const fetchBills = async () => {
 
     return res;
   } catch (err: any) {
-
-    if (err.response.data.status === 401){
-      localStorage.removeItem("name");
-      localStorage.removeItem("token");
-      localStorage.removeItem("families");
-      window.location.reload()
-    }
     throw new Error(err);
   }
 };
