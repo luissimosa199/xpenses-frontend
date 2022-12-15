@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
 import { TextField, Button, ButtonGroup, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import SelectWithSwitch from "../../components/SelectWithSwitch/SelectWithSwitch";
+import { UserContext } from "../../context/UserContext";
 const { REACT_APP_API_URL } = process.env;
 const token = localStorage.getItem("token");
 
@@ -13,6 +14,7 @@ interface AddNewBillProps {}
 
 const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
   const navigate = useNavigate();
+  const { userState } = useContext(UserContext);
 
   // FORMIK
   const initialValues = {
@@ -45,9 +47,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
           date: values.date,
           amount: values.amount,
           status: values.status,
-          // traer usuario desde el stado global
-          createdBy: "Luis",
-          //
+          createdBy: userState.user.name,
           family: values.family,
         },
         {

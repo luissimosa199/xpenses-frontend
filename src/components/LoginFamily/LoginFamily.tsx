@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Button, ButtonGroup, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
@@ -6,12 +6,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
 import axios from "axios";
+import { UserContext } from "../../context/UserContext";
 const { REACT_APP_API_URL } = process.env;
 
 interface LoginFamilyProps {}
 
 const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
   const navigate = useNavigate();
+  const { userState } = useContext(UserContext);
 
   // FORMIK
   const initialValues = {
@@ -33,8 +35,7 @@ const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
         {
           name: values.familyName,
           password: values.password,
-          // HARDCODED USER ID
-          user_id: "63877baec3c40609aa5bbda4",
+          user_id: userState.user._id,
         },
         {
           headers: {

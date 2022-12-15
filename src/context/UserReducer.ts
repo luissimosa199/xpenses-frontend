@@ -10,22 +10,22 @@ export const userReducer = (state: State, action: UserAction): State => {
         case 'USER_LOGIN':
             return {
                 user: {
-                    isLogged: true,
                     _id: action.payload._id,
                     name: action.payload.name,
                     email: action.payload.email,
                     families: action.payload.families,
-                }
+                },
+                isLogged: true,
             }
         case 'USER_LOGOUT':
             return {
                 user: {
-                    isLogged: false,
                     _id: '',
                     name: '',
                     email: '',
                     families: '',
-                }
+                },
+                isLogged: false,
             }
 
         default:

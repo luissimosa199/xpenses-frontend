@@ -1,5 +1,5 @@
 import { FunctionComponent, useReducer } from 'react'
-import { State } from './ContextInterfaces'
+import { State, User } from './ContextInterfaces'
 import { UserContext } from './UserContext'
 import { userReducer } from './UserReducer'
 
@@ -13,16 +13,26 @@ const INITIAL_STATE: State = {
         email: '',
         families: '',
         name: '',
-        isLogged: false,
     },
+    isLogged: false,
 }
 
 export const UserProvider: FunctionComponent<Props> = ({ children }) => {
 
     const [userState, dispatch] = useReducer( userReducer, INITIAL_STATE )
 
+    const handleLogin = (loginData: User) => {
+        dispatch({ type: 'USER_LOGIN', payload: loginData})
+    }
+
+    const handleLogout = () => {
+        dispatch({ type: 'USER_LOGOUT' })
+    }
+
     return <UserContext.Provider value={{
-        userState
+        userState,
+        handleLogin,
+        handleLogout,
     }}>
         {children}
     </UserContext.Provider>

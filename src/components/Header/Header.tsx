@@ -8,15 +8,15 @@ import { StyledLink } from "../containers/StyledLink";
 import { UserContext } from "../../context/UserContext";
 
 const Header: FunctionComponent = () => {
-
-  const { userState } = useContext(UserContext)
+  const { userState, handleLogout } = useContext(UserContext);
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleExit = () => {
     localStorage.removeItem("name");
     localStorage.removeItem("token");
     localStorage.removeItem("families");
+    handleLogout();
     navigate("/login", { replace: true });
   };
 
@@ -26,37 +26,39 @@ const Header: FunctionComponent = () => {
 
   return (
     <StyledHeader>
-      <StyledLink to='/'><h1>XPenses</h1></StyledLink>
+      <StyledLink to="/">
+        <h1>XPenses</h1>
+      </StyledLink>
 
-      {userState.user.isLogged && 
-      <>
-      <nav>
-        <ul>
-          <li>
-            <StyledLink to="/family/login">Family</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/details">Details</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/history">History</StyledLink>
-          </li>
-          <li className="btn-add">
-            <IconButton onClick={handleAddNewBill}>
-              <AddIcon />
+      {userState.isLogged && (
+        <>
+          <nav>
+            <ul>
+              <li>
+                <StyledLink to="/family/login">Family</StyledLink>
+              </li>
+              <li>
+                <StyledLink to="/details">Details</StyledLink>
+              </li>
+              <li>
+                <StyledLink to="/history">History</StyledLink>
+              </li>
+              <li className="btn-add">
+                <IconButton onClick={handleAddNewBill}>
+                  <AddIcon />
+                </IconButton>
+              </li>
+            </ul>
+          </nav>
+
+          <div className="flex-end">
+            <p>{userState.user.name}</p>
+            <IconButton onClick={handleExit}>
+              <LogoutIcon />
             </IconButton>
-          </li>
-        </ul>
-      </nav>
-
-      <div className="flex-end">
-        <p>{localStorage.getItem("name")}</p>
-        <IconButton onClick={handleLogout}>
-          <LogoutIcon />
-        </IconButton>
-      </div>
-      </>}
-
+          </div>
+        </>
+      )}
     </StyledHeader>
   );
 };

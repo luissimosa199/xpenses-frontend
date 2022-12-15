@@ -2,10 +2,10 @@ export interface User{
     _id: string,
     name: string,
     email: string,
-    families: string | string[],
-    isLogged: boolean,
+    families: string | string[] | null,
 }
 
 export interface State {
-    user: User
+    user: User,
+    isLogged: boolean,
 }

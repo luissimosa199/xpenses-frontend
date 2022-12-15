@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
 import { TextField, ButtonGroup, Button } from "@mui/material";
@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { UserContext } from "../../context/UserContext";
 const { REACT_APP_API_URL } = process.env;
 
 interface SignupProps {}
@@ -13,6 +14,7 @@ interface SignupProps {}
 const Signup: FunctionComponent<SignupProps> = () => {
 
   const navigate = useNavigate();
+  const { handleLogin } = useContext(UserContext);
 
   // FORMIK
   const initialValues = {
@@ -49,6 +51,15 @@ const Signup: FunctionComponent<SignupProps> = () => {
       console.log(response)
 
       if (response?.status === 201) {
+        const loginData = {
+          _id: response?.data?.data?.user?._id,
+          email: response?.data?.data?.user?.email,
+          families: response?.data?.data?.user?.families || null,
+          name: response?.data?.data?.user?.name,
+        };
+
+        handleLogin(loginData);
+
         localStorage.setItem("token", response?.data?.data?.token);
         localStorage.setItem("name", response?.data?.data?.name);
         navigate("/", { replace: true });

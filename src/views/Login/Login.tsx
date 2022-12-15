@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
 import { TextField, Button, ButtonGroup } from "@mui/material";
@@ -6,12 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { UserContext } from "../../context/UserContext";
 const { REACT_APP_API_URL } = process.env;
 
 interface LoginProps {}
 
 const Login: FunctionComponent<LoginProps> = () => {
   const navigate = useNavigate();
+  const { handleLogin } = useContext(UserContext);
 
   // FORMIK
   const initialValues = {
@@ -44,11 +46,22 @@ const Login: FunctionComponent<LoginProps> = () => {
       );
 
       if (response?.status === 201) {
-
         // guardar los datos de usuario en un estado global
+        const loginData = {
+          _id: response?.data?.data?.user?._id,
+          email: response?.data?.data?.user?.email,
+          families: response?.data?.data?.user?.families,
+          name: response?.data?.data?.user?.name,
+        };
+
+        handleLogin(loginData);
+
         localStorage.setItem("token", response?.data?.data?.token);
         localStorage.setItem("name", response?.data?.data?.user?.name);
-        localStorage.setItem("families", JSON.stringify(response?.data?.data?.user.families));
+        localStorage.setItem(
+          "families",
+          JSON.stringify(response?.data?.data?.user.families)
+        );
         navigate("/", { replace: true });
       }
     } catch (err) {
