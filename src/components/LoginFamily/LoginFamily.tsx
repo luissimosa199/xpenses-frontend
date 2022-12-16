@@ -63,16 +63,18 @@ const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
     <>
       <StyledForm onSubmit={handleSubmit}>
         <h2>Entrar en una familia</h2>
+
         <TextField
-          id="familyName"
           label="Nombre de la familia"
           variant="outlined"
+          id="familyName"
           value={values.familyName}
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.familyName && Boolean(errors.familyName)}
           helperText={touched.familyName && errors.familyName}
         />
+
         <PasswordInput
           value={values.password}
           handleChange={handleChange}

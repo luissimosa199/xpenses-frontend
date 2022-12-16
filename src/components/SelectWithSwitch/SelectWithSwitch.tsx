@@ -1,7 +1,6 @@
 import { FunctionComponent, useState } from "react";
 
 import {
-  FormControl,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -12,7 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import TextFieldSelect from "./TextFieldSelect";
 import { StyledFormControl } from "./FormControl.styled";
 
-interface SelectWithSwitchProps {
+interface Props {
   name: string;
   label: string;
   value: string;
@@ -22,7 +21,7 @@ interface SelectWithSwitchProps {
   touched: boolean | undefined;
 }
 
-const SelectWithSwitch: FunctionComponent<SelectWithSwitchProps> = ({
+const SelectWithSwitch: FunctionComponent<Props> = ({
   value,
   handleChange,
   handleBlur,

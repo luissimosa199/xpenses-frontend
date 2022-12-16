@@ -13,8 +13,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 interface PasswordInputProps {
   value: string;
-  handleChange: any;
-  handleBlur: any;
+  handleChange: (e: React.ChangeEvent<any>) => void;
+  handleBlur: (e: any) => void;
   error: any;
   touched: boolean | undefined;
 }

@@ -1,12 +1,14 @@
 import { FunctionComponent, useContext } from "react";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
-import { TextField, Button, ButtonGroup, MenuItem } from "@mui/material";
+import { UserContext } from "../../context/UserContext";
+import TextFieldContainer from "../../components/containers/TextFieldContainer";
+
+import { Button, ButtonGroup, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import SelectWithSwitch from "../../components/SelectWithSwitch/SelectWithSwitch";
-import { UserContext } from "../../context/UserContext";
+
 const { REACT_APP_API_URL } = process.env;
 const token = localStorage.getItem("token");
 
@@ -84,82 +86,59 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <SelectWithSwitch
+      <TextFieldContainer
+        component="SelectWithSwitch"
         name="name"
+        configs={{ values, handleChange, handleBlur, touched, errors }}
         label="Nombre"
-        value={values.name}
-        handleChange={handleChange}
-        handleBlur={handleBlur}
-        error={errors.name}
-        touched={touched.name}
       />
 
-      <SelectWithSwitch
+      <TextFieldContainer
+        component="SelectWithSwitch"
         name="description"
+        configs={{ values, handleChange, handleBlur, touched, errors }}
         label="Descripcion"
-        value={values.description}
-        handleChange={handleChange}
-        handleBlur={handleBlur}
-        error={errors.description}
-        touched={touched.description}
       />
 
-      <TextField
-        id="date"
-        variant="outlined"
-        type="date"
-        value={values.date}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched.date && Boolean(errors.date)}
-        helperText={touched.date && errors.date}
+      <TextFieldContainer
+        label=""
+        component="TextField"
+        name="date"
+        configs={{ values, handleChange, handleBlur, touched, errors }}
+        other={{ type: "date", variant: "outlined" }}
       />
 
-      <TextField
-        id="amount"
-        type="number"
+      <TextFieldContainer
+        component="TextField"
+        name="amount"
         label="Importe"
-        variant="outlined"
-        value={values.amount}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched.amount && Boolean(errors.amount)}
-        helperText={touched.amount && errors.amount}
+        configs={{ values, handleChange, handleBlur, touched, errors }}
+        other={{ type: "number", variant: "outlined" }}
       />
 
-      <TextField
-        select
-        id="status"
+      <TextFieldContainer
+        component="TextField"
         name="status"
         label="Estatus"
-        variant="outlined"
-        value={values.status}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched.status && Boolean(errors.status)}
-        helperText={touched.status && errors.status}
+        configs={{ values, handleChange, handleBlur, touched, errors }}
+        other={{ select: true, variant: "outlined" }}
       >
         <MenuItem value="unknown">Desconocido</MenuItem>
         <MenuItem value="paid">Pago</MenuItem>
         <MenuItem value="notpaid">Por pagar</MenuItem>
-      </TextField>
+      </TextFieldContainer>
 
-      <TextField
-        select
-        id="family"
-        label="Familia"
+      <TextFieldContainer
+        component="TextField"
         name="family"
-        variant="outlined"
-        value={values.family}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched.family && Boolean(errors.family)}
-        helperText={touched.family && errors.family}
+        label="Familia"
+        configs={{ values, handleChange, handleBlur, touched, errors }}
+        other={{ select: true, variant: "outlined" }}
       >
         {/* hacer un map de todas las familias del usuario actual y renderizar
         como opciones */}
         <MenuItem value="63876305442ba7812c757bd3">simosa-medina</MenuItem>
-      </TextField>
+      </TextFieldContainer>
 
       <ButtonGroup
         variant="contained"
