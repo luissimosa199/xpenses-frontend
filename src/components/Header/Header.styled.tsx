@@ -26,14 +26,13 @@ export const StyledHeader = styled.header`
     margin-left: auto;
   }
 
-  & .btn-add {
-  }
-
   & .btn-add::after {
     content: "Agregar una factura";
     transition: all 500ms ease;
     opacity: 0;
     position: absolute;
+    top: 40px;
+    right: 50px;
     width: fit-content;
     height: fit-content;
     font-size: 0.9rem;
@@ -47,4 +46,19 @@ export const StyledHeader = styled.header`
   & .btn-add:hover::after {
     opacity: 1;
   }
+
+  @media (max-width: 520px) {
+        flex-direction: column;
+        height: fit-content;
+
+        & .flex-end {
+          position: absolute;
+          right: 1px;
+        }
+
+        & .flex-end p {
+          visibility: hidden;
+        }
+  }
+
 `;
