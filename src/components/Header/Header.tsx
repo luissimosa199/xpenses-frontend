@@ -16,6 +16,7 @@ const Header: FunctionComponent = () => {
     localStorage.removeItem("name");
     localStorage.removeItem("token");
     localStorage.removeItem("families");
+    localStorage.removeItem("userData");
     handleLogout();
     navigate("/login", { replace: true });
   };
