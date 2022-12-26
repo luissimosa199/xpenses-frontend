@@ -54,6 +54,8 @@ const Login: FunctionComponent<LoginProps> = () => {
           name: response?.data?.data?.user?.name,
         };
 
+        localStorage.setItem('userData', JSON.stringify(loginData))
+
         handleLogin(loginData);
 
         localStorage.setItem("token", response?.data?.data?.token);

@@ -1,10 +1,16 @@
-import { FunctionComponent } from "react"
-import { Navigate } from "react-router-dom"
+import { FunctionComponent} from "react";
+import { Navigate } from "react-router-dom";
 
 interface RequireAuthProps {
-  children: JSX.Element
+  children: JSX.Element;
 }
 
-export const RequireAuth: FunctionComponent<RequireAuthProps> = ({ children }) => {
-    return !localStorage.getItem('token') ? <Navigate to='/login' replace={true} /> : children
-}
+export const RequireAuth: FunctionComponent<RequireAuthProps> = ({
+  children,
+}) => {
+  return !localStorage.getItem("token") ? (
+    <Navigate to="/login" replace={true} />
+  ) : (
+    children
+  );
+};
