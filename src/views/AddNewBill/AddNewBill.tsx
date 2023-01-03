@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
 import { UserContext } from "../../context/UserContext";
 import TextFieldContainer from "../../components/containers/TextFieldContainer";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+const families = JSON.parse(`${localStorage.getItem("families")}`);
 
 const { REACT_APP_API_URL } = process.env;
 const token = localStorage.getItem("token");
@@ -84,6 +85,37 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
     handleBlur,
   } = formik;
 
+  const [nameOptions, setNameOptions] = useState<any>()
+  const [descriptionOptions, setDescriptionOptions] = useState<any>()
+
+  const fetchOptions = async () => {
+    try {
+      const res = await axios({
+        method: "get",
+        url: `${REACT_APP_API_URL}bills?family=${families[0]}`,
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      const names = res.data.data.map((e: any) => e.name)
+      const descriptions = res.data.data.map((e: any) => e.description)
+
+      setNameOptions([...new Set(names)])
+      setDescriptionOptions([...new Set(descriptions)])
+      
+      return
+    } catch (err: any) {
+      throw new Error(err);
+    }
+  }
+  
+  useEffect(() => {
+
+    fetchOptions()
+
+  }, [])
+
   return (
     <StyledForm onSubmit={handleSubmit}>
       <TextFieldContainer
@@ -91,6 +123,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
         name="name"
         configs={{ values, handleChange, handleBlur, touched, errors }}
         label="Nombre"
+        other={{other: nameOptions}}
       />
 
       <TextFieldContainer
@@ -98,6 +131,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
         name="description"
         configs={{ values, handleChange, handleBlur, touched, errors }}
         label="Descripcion"
+        other={{ other: descriptionOptions }}
       />
 
       <TextFieldContainer
@@ -135,8 +169,6 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
         configs={{ values, handleChange, handleBlur, touched, errors }}
         other={{ select: true, variant: "outlined" }}
       >
-        {/* hacer un map de todas las familias del usuario actual y renderizar
-        como opciones */}
         <MenuItem value="63876305442ba7812c757bd3">simosa-medina</MenuItem>
       </TextFieldContainer>
 

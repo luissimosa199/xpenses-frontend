@@ -13,6 +13,7 @@ interface TextFieldSelectProps {
   newDescription: boolean;
   name: string;
   label: string;
+  other?: any;
 }
 
 const TextFieldSelect: FunctionComponent<TextFieldSelectProps> = ({
@@ -24,8 +25,10 @@ const TextFieldSelect: FunctionComponent<TextFieldSelectProps> = ({
   toggleType,
   newDescription,
   name,
-  label
+  label,
+  other,
 }) => {
+
   return (
 
       <TextField
@@ -53,8 +56,10 @@ const TextFieldSelect: FunctionComponent<TextFieldSelectProps> = ({
         }}
       >
         <MenuItem value="" selected></MenuItem>
-        {/* traer las opciones desde el estado global */}
-        <MenuItem value="option">Option</MenuItem>
+
+        {
+          other ? other.map((e: any) => {return <MenuItem key={e} value={e}>{e}</MenuItem> }): ''
+        }
       </TextField>
   );
 };

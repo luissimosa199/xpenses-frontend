@@ -19,6 +19,7 @@ interface Props {
   handleBlur: (e: any) => void;
   error: any;
   touched: boolean | undefined;
+  other?: any;
 }
 
 const SelectWithSwitch: FunctionComponent<Props> = ({
@@ -29,6 +30,7 @@ const SelectWithSwitch: FunctionComponent<Props> = ({
   touched,
   name,
   label,
+  other
 }) => {
   const [newDescription, setNewDescription] = useState(false);
 
@@ -75,6 +77,7 @@ const SelectWithSwitch: FunctionComponent<Props> = ({
           touched={touched}
           toggleType={toggleType}
           newDescription={newDescription}
+          other={other}
         />
       )}
     </StyledFormControl>

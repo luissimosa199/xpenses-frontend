@@ -53,6 +53,7 @@ const TextFieldContainer: FunctionComponent<TextFieldContainerProps> = ({
   label,
   component,
 }) => {
+
   switch (component) {
     case "TextField":
       return (
@@ -74,6 +75,7 @@ const TextFieldContainer: FunctionComponent<TextFieldContainerProps> = ({
       return (
         <SelectWithSwitch
           label={label}
+          {...other}
           name={name}
           value={configs.values[name]}
           handleChange={configs.handleChange}
