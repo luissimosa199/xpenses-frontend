@@ -48,17 +48,17 @@ export const StyledHeader = styled.header`
   }
 
   @media (max-width: 520px) {
-        flex-direction: column;
-        height: fit-content;
+    padding-top: 0.5rem;
+    flex-direction: column;
+    height: fit-content;
 
-        & .flex-end {
-          position: absolute;
-          right: 1px;
-        }
+    & .flex-end {
+      position: absolute;
+      right: 1px;
+    }
 
-        & .flex-end p {
-          visibility: hidden;
-        }
+    & .flex-end p {
+      visibility: hidden;
+    }
   }
-
 `;
