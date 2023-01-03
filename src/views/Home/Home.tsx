@@ -19,7 +19,7 @@ const fetchBills = async () => {
         Authorization: "Bearer " + token,
       },
     });
-
+    res.data.data.reverse()
     return res;
   } catch (err: any) {
     throw new Error(err);
