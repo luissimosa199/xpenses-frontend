@@ -14,7 +14,7 @@ const INITIAL_STATE: State = {
         families: '',
         name: '',
     },
-    isLogged: true,
+    isLogged: false,
 }
 
 export const UserProvider: FunctionComponent<Props> = ({ children }) => {
