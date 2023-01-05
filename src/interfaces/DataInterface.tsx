@@ -5,9 +5,9 @@ export interface DataObject {
   date?: string;
   amount?: number;
   status: "paid" | "notpaid" | "unknown";
-  createBy: string;
+  createdBy: string;
   family: string;
-  createAt: string;
+  createdAt: string;
   updatedAt: string;
   __v: number;
 }

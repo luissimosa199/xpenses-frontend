@@ -16,12 +16,11 @@ export const StyledCard = styled.div<Props>`
   transition: all 0.2s;
 
   background: ${(props) =>
-    (props.background === "unknown"
+    props.background === "unknown"
       ? "radial-gradient(#cbcbcb, #b6b6b6);"
       : props.background === "paid"
       ? "radial-gradient(#B6D6F6, #A4CCF4);"
-      : "radial-gradient(#EBCACE, #ffd1d6);")
-      };
+      : "radial-gradient(#EBCACE, #ffd1d6);"};
 
   &:hover {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
