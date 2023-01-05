@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
+import Swal from "sweetalert2";
 const { REACT_APP_API_URL } = process.env;
 
 interface LoginFamilyProps {}
@@ -45,12 +46,24 @@ const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
       );
 
       if (response?.status === 201) {
-        // abrir modal de confirmacion
+        Swal.fire({
+          title: 'Agregado!',
+          text: 'Una nueva familia ha sido agregada',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          timer: 3000,
+        })
         navigate("/", { replace: true });
         console.log(response.data);
       }
     } catch (err) {
-      // abrir modal de error
+      Swal.fire({
+        title: 'Error!',
+        text: `${err}`,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        timer: 3000,
+      })
       throw Error(`${err}`);
     }
   };

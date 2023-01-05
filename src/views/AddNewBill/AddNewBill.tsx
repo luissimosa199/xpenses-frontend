@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import Swal from 'sweetalert2'
+
 const families = JSON.parse(`${localStorage.getItem("families")}`);
 
 const { REACT_APP_API_URL } = process.env;
@@ -62,13 +64,24 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
       );
 
       if (response?.status === 201) {
-        // abrir modal de confirmacion
-        console.log(response.status);
+        Swal.fire({
+          title: 'Agregado!',
+          text: 'Una nueva factura ha sido agregada',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          timer: 3000,
+        })
         navigate("/");
         return;
       }
     } catch (err) {
-      // abrir modal de error
+      Swal.fire({
+        title: 'Error!',
+        text: `${err}`,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        timer: 3000,
+      })
       throw Error(`Error: ${err}`);
     }
   };
