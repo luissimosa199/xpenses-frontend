@@ -46,7 +46,7 @@ const Login: FunctionComponent<LoginProps> = () => {
       );
 
       if (response?.status === 201) {
-        // guardar los datos de usuario en un estado global
+
         const loginData = {
           _id: response?.data?.data?.user?._id,
           email: response?.data?.data?.user?.email,
