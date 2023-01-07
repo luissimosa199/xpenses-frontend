@@ -1,11 +1,27 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { StyledDashboardError } from "./DashboardError.styled";
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import IconButton from "../containers/IconButton";
+import { UserContext } from "../../context/UserContext";
 
 interface DashnoardErrorProps {
   error: unknown;
 }
 
 const DashboardError: FunctionComponent<DashnoardErrorProps> = ({ error }) => {
+  const { handleLogout } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleExit = () => {
+    localStorage.removeItem("name");
+    localStorage.removeItem("token");
+    localStorage.removeItem("families");
+    localStorage.removeItem("userData");
+    handleLogout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <StyledDashboardError>
       <h2>Ha ocurrido un error</h2>
@@ -18,6 +34,9 @@ const DashboardError: FunctionComponent<DashnoardErrorProps> = ({ error }) => {
       <div>
         <h3>Error Code:</h3>
         <p>{`${error}`}</p>
+        <IconButton onClick={handleExit}>
+          <LogoutIcon />
+        </IconButton>
       </div>
     </StyledDashboardError>
   );
