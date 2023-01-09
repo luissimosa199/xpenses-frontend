@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { DataObject } from "../../interfaces/DataInterface";
 import { StyledCard } from "./Card.styled";
 
@@ -13,6 +13,8 @@ import axios from "axios";
 import { statusTranslation } from "../../utils/statusTranslation";
 import { parseDate } from "../../utils/parseDate";
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 const { REACT_APP_API_URL } = process.env;
 const token = localStorage.getItem("token");
 
@@ -22,6 +24,9 @@ interface CardProps {
 
 const Card: FunctionComponent<CardProps> = ({ info }) => {
   const queryClient = useQueryClient();
+  const [cardStatus, setCardStatus] = useState<DataObject["status"]>(
+    `${info.status}`
+  );
 
   const deleteBill = useMutation({
     onSuccess: () => {
@@ -39,8 +44,14 @@ const Card: FunctionComponent<CardProps> = ({ info }) => {
   });
 
   const updateBill = useMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["bills"] });
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["bills"] });
+
+      setCardStatus(info.status === "notpaid" ? "paid" : "notpaid");
+    },
+
+    onMutate: () => {
+      setCardStatus("unknown");
     },
 
     mutationFn: () => {
@@ -60,7 +71,7 @@ const Card: FunctionComponent<CardProps> = ({ info }) => {
 
   return (
     <li>
-      <StyledCard background={info.status}>
+      <StyledCard background={cardStatus}>
         <div className="card-icon">
           <i>I</i>
         </div>
@@ -90,13 +101,16 @@ const Card: FunctionComponent<CardProps> = ({ info }) => {
           <p className="card-info-desc">{info.description}</p>
           <p className="card-info-date">{info.date}</p>
           <Button
+            disabled={cardStatus === 'unknown'}
             variant="outlined"
-            color={statusColor(info.status)}
+            color={statusColor(cardStatus)}
             onClick={() => {
               updateBill.mutate();
             }}
           >
-            {info.status}
+            {cardStatus === "unknown"
+              ? <CircularProgress size='1.52rem' />
+              : statusTranslation(cardStatus)}
           </Button>
           <p className="card-info-amount">${info.amount}</p>
         </div>
@@ -111,14 +125,20 @@ const Card: FunctionComponent<CardProps> = ({ info }) => {
                     <tr><th>Descripción</th><td>${info.description}</td></tr>
                     <tr><th>Fecha</th><td>${info.date}</td></tr>
                     <tr><th>Monto</th><td>$${info.amount}</td></tr>
-                    <tr><th>Estatus</th><td>${statusTranslation(info.status)}</td></tr>
+                    <tr><th>Estatus</th><td>${statusTranslation(
+                      info.status
+                    )}</td></tr>
                     <tr><th>Creador por</th><td>${info.createdBy}</td></tr>
-                    <tr><th>Creado</th><td>${parseDate(info.createdAt)}</td></tr>
-                    <tr><th>Última actualización</th><td>${parseDate(info.updatedAt)}</td></tr>
+                    <tr><th>Creado</th><td>${parseDate(
+                      info.createdAt
+                    )}</td></tr>
+                    <tr><th>Última actualización</th><td>${parseDate(
+                      info.updatedAt
+                    )}</td></tr>
                   <tbody>
                 </table>`,
                 showConfirmButton: true,
-                confirmButtonText: 'Cerrar',
+                confirmButtonText: "Cerrar",
               });
             }}
           >
