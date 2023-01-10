@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const families = JSON.parse(`${localStorage.getItem("families")}`);
 
@@ -65,23 +65,23 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
 
       if (response?.status === 201) {
         Swal.fire({
-          title: 'Agregado!',
-          text: 'Una nueva factura ha sido agregada',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
+          title: "Agregado!",
+          text: "Una nueva factura ha sido agregada",
+          icon: "success",
+          confirmButtonText: "Aceptar",
           timer: 3000,
-        })
+        });
         navigate("/");
         return;
       }
     } catch (err) {
       Swal.fire({
-        title: 'Error!',
+        title: "Error!",
         text: `${err}`,
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
+        icon: "error",
+        confirmButtonText: "Aceptar",
         timer: 3000,
-      })
+      });
       throw Error(`Error: ${err}`);
     }
   };
@@ -98,8 +98,8 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
     handleBlur,
   } = formik;
 
-  const [nameOptions, setNameOptions] = useState<any>()
-  const [descriptionOptions, setDescriptionOptions] = useState<any>()
+  const [nameOptions, setNameOptions] = useState<any>();
+  const [descriptionOptions, setDescriptionOptions] = useState<any>();
 
   const fetchOptions = async () => {
     try {
@@ -111,23 +111,21 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
         },
       });
 
-      const names = res.data.data.map((e: any) => e.name)
-      const descriptions = res.data.data.map((e: any) => e.description)
+      const names = res.data.data.map((e: any) => e.name);
+      const descriptions = res.data.data.map((e: any) => e.description);
 
-      setNameOptions([...new Set(names)])
-      setDescriptionOptions([...new Set(descriptions)])
-      
-      return
+      setNameOptions([...new Set(names)]);
+      setDescriptionOptions([...new Set(descriptions)]);
+
+      return;
     } catch (err: any) {
       throw new Error(err);
     }
-  }
-  
+  };
+
   useEffect(() => {
-
-    fetchOptions()
-
-  }, [])
+    fetchOptions();
+  }, []);
 
   return (
     <StyledForm onSubmit={handleSubmit}>
@@ -136,7 +134,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
         name="name"
         configs={{ values, handleChange, handleBlur, touched, errors }}
         label="Nombre"
-        other={{other: nameOptions}}
+        other={{ other: nameOptions }}
       />
 
       <TextFieldContainer

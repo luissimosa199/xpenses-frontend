@@ -26,25 +26,44 @@ export const StyledHeader = styled.header`
     margin-left: auto;
   }
 
-  & .btn-add::after {
-    content: "Agregar una factura";
-    transition: all 500ms ease;
-    opacity: 0;
-    position: absolute;
-    top: 40px;
-    right: 50px;
-    width: fit-content;
-    height: fit-content;
-    font-size: 0.9rem;
-    color: #454545;
-    padding: 0.3rem;
-    border-radius: 10px;
+  & .btn-add {
+    position: fixed;
+    bottom: 1.5rem;
+    right: .7rem;
+    z-index: 100;
+    background-color: white;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
-    background: radial-gradient(#b6d6f6, #a4ccf4);
+    display: flex;
+    justify-items: center;
   }
 
-  & .btn-add:hover::after {
-    opacity: 1;
+  & .btn-add > * {
+    margin-inline: auto;
+    justify-self: center;
+    transform: scale(2);
+  }
+
+  @media (min-width: 700px) {
+    & .btn-add::after {
+      content: "Agregar una factura";
+      transition: all 500ms ease;
+      opacity: 0;
+      width: fit-content;
+      height: fit-content;
+      font-size: 0.9rem;
+      color: #454545;
+      padding: 0.7rem;
+      border-radius: 1px;
+      box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+      background: radial-gradient(#ffffff, #f8f8f8);
+    }
+
+    & .btn-add:hover::after {
+      opacity: 1;
+    }
   }
 
   @media (max-width: 520px) {
