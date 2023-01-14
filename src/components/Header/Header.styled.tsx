@@ -33,37 +33,23 @@ export const StyledHeader = styled.header`
     z-index: 100;
     background-color: white;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    width: 65px;
+    height: 65px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-items: center;
+    transition: all 200ms ease;
+  }
+
+  & .btn-add:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.01);
   }
 
   & .btn-add > * {
     margin-inline: auto;
     justify-self: center;
-    transform: scale(2);
-  }
-
-  @media (min-width: 700px) {
-    & .btn-add::after {
-      content: "Agregar una factura";
-      transition: all 500ms ease;
-      opacity: 0;
-      width: fit-content;
-      height: fit-content;
-      font-size: 0.9rem;
-      color: #454545;
-      padding: 0.7rem;
-      border-radius: 1px;
-      box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
-      background: radial-gradient(#ffffff, #f8f8f8);
-    }
-
-    & .btn-add:hover::after {
-      opacity: 1;
-    }
+    transform: scale(1.8);
   }
 
   @media (max-width: 520px) {
