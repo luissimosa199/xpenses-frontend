@@ -31,12 +31,22 @@ const DashboardError: FunctionComponent<DashnoardErrorProps> = ({ error }) => {
           facturas
         </p>
       )}
+
+      {`${error}`.startsWith("Error: User not authorize") && (
+        <div>
+          <p>
+            Necesitamos validar tus credenciales, por favor deslogueate y vuelve
+            a ingresar:
+          </p>
+          <IconButton onClick={handleExit}>
+            <LogoutIcon />
+          </IconButton>
+        </div>
+      )}
+
       <div>
         <h3>Error Code:</h3>
         <p>{`${error}`}</p>
-        <IconButton onClick={handleExit}>
-          <LogoutIcon />
-        </IconButton>
       </div>
     </StyledDashboardError>
   );

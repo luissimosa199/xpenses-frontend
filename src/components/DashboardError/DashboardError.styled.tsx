@@ -15,5 +15,6 @@ export const StyledDashboardError = styled.div`
         height: 100%;
         padding: 1rem;
         border-radius: .5rem;
+        margin-bottom: .1rem;
     }
 `

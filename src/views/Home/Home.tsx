@@ -29,8 +29,7 @@ const fetchBills = async () => {
     res.data.data.reverse();
     return res;
   } catch (err: any) {
-    console.log("CATCHING ERRORS");
-    throw new Error(err);
+    throw new Error(err?.response?.data?.message);
   }
 };
 

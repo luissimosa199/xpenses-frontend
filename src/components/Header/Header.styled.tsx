@@ -8,7 +8,7 @@ export const StyledHeader = styled.header`
   padding: 0 1rem;
 
   h1 {
-    margin: 0;
+    margin: 0 1rem;
   }
 
   ul {
