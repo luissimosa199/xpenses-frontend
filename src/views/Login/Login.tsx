@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent, useContext, useState } from "react";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
 import { TextField, Button, ButtonGroup } from "@mui/material";
@@ -14,6 +14,15 @@ interface LoginProps {}
 const Login: FunctionComponent<LoginProps> = () => {
   const navigate = useNavigate();
   const { handleLogin } = useContext(UserContext);
+  const [btnState, setBtnState] = useState<
+    | "primary"
+    | "error"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "inherit"
+  >("primary");
 
   // FORMIK
   const initialValues = {
@@ -31,6 +40,8 @@ const Login: FunctionComponent<LoginProps> = () => {
   });
 
   const onSubmit: any = async () => {
+    setBtnState('inherit')
+
     try {
       const response = await axios.post(
         `${REACT_APP_API_URL}user/login`,
@@ -46,7 +57,6 @@ const Login: FunctionComponent<LoginProps> = () => {
       );
 
       if (response?.status === 201) {
-
         const loginData = {
           _id: response?.data?.data?.user?._id,
           email: response?.data?.data?.user?.email,
@@ -54,7 +64,7 @@ const Login: FunctionComponent<LoginProps> = () => {
           name: response?.data?.data?.user?.name,
         };
 
-        localStorage.setItem('userData', JSON.stringify(loginData))
+        localStorage.setItem("userData", JSON.stringify(loginData));
 
         handleLogin(loginData);
 
@@ -100,7 +110,7 @@ const Login: FunctionComponent<LoginProps> = () => {
         variant="contained"
         aria-label="outlined primary button group"
       >
-        <Button size="large" fullWidth type="submit">
+        <Button size="large" fullWidth type="submit" color={btnState} disabled={btnState === 'inherit'}>
           Entrar
         </Button>
         <Button size="large" fullWidth>
