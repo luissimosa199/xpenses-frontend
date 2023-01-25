@@ -47,7 +47,6 @@ const SignupFamily: FunctionComponent<SignupFamilyProps> = () => {
       if (response?.status === 201) {
         // abrir modal de confirmacion
         navigate("/", { replace: true });
-        console.log(response.data);
       }
     } catch (err) {
       // abrir modal de error
