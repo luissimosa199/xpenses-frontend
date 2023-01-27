@@ -9,6 +9,22 @@ interface DashboardProps {
 }
 
 const Dashboard: FunctionComponent<DashboardProps> = ({ data }) => {
+
+  const userData = JSON.parse(localStorage.getItem("userData") as string);
+
+  if(userData.families.length === 0){
+    return(
+      <h1>No hay familia agregada</h1>
+    )
+  }
+
+  if(data.length === 0){
+    return(
+      <h1>No hay notas agregadas</h1>
+    )
+  }
+
+
   return (
     <StyledCardList>
       {data ? (
@@ -18,6 +34,9 @@ const Dashboard: FunctionComponent<DashboardProps> = ({ data }) => {
       ) : (
         <DashboardLoader/>
       )}
+
+
+
     </StyledCardList>
   );
 };
