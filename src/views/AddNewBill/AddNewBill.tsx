@@ -80,7 +80,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
         text: `${err}`,
         icon: "error",
         confirmButtonText: "Aceptar",
-        timer: 3000,
+        timer: 10000,
       });
       throw Error(`Error: ${err}`);
     }

@@ -14,7 +14,8 @@ interface LoginFamilyProps {}
 
 const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
   const navigate = useNavigate();
-  const { userState } = useContext(UserContext);
+  const { userState, handleLogin } = useContext(UserContext);
+  const userData = JSON.parse(localStorage.getItem("userData") as string);
 
   // FORMIK
   const initialValues = {
@@ -47,23 +48,36 @@ const LoginFamily: FunctionComponent<LoginFamilyProps> = () => {
 
       if (response?.status === 201) {
         Swal.fire({
-          title: 'Agregado!',
-          text: 'Una nueva familia ha sido agregada',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
+          title: "Agregado!",
+          text: "Una nueva familia ha sido agregada",
+          icon: "success",
+          confirmButtonText: "Aceptar",
           timer: 3000,
-        })
+        });
+
+        const loginData = {
+          ...userData,
+          families: [
+            ...userData.families,
+            JSON.stringify(response?.data?.data),
+          ],
+        };
+
+        localStorage.setItem("families", JSON.stringify([...userData.families, JSON.stringify(response?.data?.data)]))
+        localStorage.setItem("userData", JSON.stringify(loginData));
+
+        handleLogin(loginData);
+
         navigate("/", { replace: true });
-        console.log(response.data);
       }
-    } catch (err) {
+    } catch (err: any) {
       Swal.fire({
-        title: 'Error!',
-        text: `${err}`,
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        timer: 3000,
-      })
+        title: "Error!",
+        text: `${err?.response?.data?.data?.error}` || err,
+        icon: "error",
+        confirmButtonText: "Aceptar",
+        timer: 10000,
+      });
       throw Error(`${err}`);
     }
   };

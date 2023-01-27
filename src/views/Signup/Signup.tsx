@@ -68,7 +68,7 @@ const Signup: FunctionComponent<SignupProps> = () => {
         text: `${err?.response?.data?.data?.error}` || err,
         icon: "error",
         confirmButtonText: "Aceptar",
-        timer: 3000,
+        timer: 10000,
       });
       throw Error("Error");
     }

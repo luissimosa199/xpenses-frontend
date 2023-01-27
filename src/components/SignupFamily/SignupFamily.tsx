@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Button, ButtonGroup, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
@@ -6,6 +6,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { UserContext } from "../../context/UserContext";
 const { REACT_APP_API_URL } = process.env;
 
 interface SignupFamilyProps {}
@@ -45,11 +47,25 @@ const SignupFamily: FunctionComponent<SignupFamilyProps> = () => {
       );
 
       if (response?.status === 201) {
-        // abrir modal de confirmacion
-        navigate("/", { replace: true });
+        Swal.fire({
+          title: "Felicidades!",
+          text: "Has registrado con éxito tu familia, ahora valida los datos ingresando en ella",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+          timer: 3000,
+        });
+
+        navigate("/family/login", { replace: true });
       }
-    } catch (err) {
-      // abrir modal de error
+    } catch (err: any) {
+
+      Swal.fire({
+        title: "Error!",
+        text: `${err?.response?.data?.data?.error}` || err,
+        icon: "error",
+        confirmButtonText: "Aceptar",
+        timer: 10000,
+      });
       throw Error(`${err}`);
     }
   };
