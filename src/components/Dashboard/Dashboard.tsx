@@ -10,6 +10,7 @@ interface DashboardProps {
 
 const Dashboard: FunctionComponent<DashboardProps> = ({ data }) => {
 
+  
   const userData = JSON.parse(localStorage.getItem("userData") as string);
 
   if(userData.families.length === 0){

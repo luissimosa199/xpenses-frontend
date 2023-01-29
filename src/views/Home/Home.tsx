@@ -18,7 +18,7 @@ const fetchBills = async () => {
   const token = localStorage.getItem("token");
   const families = JSON.parse(`${localStorage.getItem("families")}`);
 
-  const family = JSON.parse(families[0])
+  const family = families.length === 0 ? [] : JSON.parse(families[0])
 
   try {
     const res = await axios({
