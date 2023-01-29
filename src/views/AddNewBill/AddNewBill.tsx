@@ -129,6 +129,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
 
   useEffect(() => {
     fetchOptions();
+    // eslint-disable-next-line
   }, []);
 
   return (
