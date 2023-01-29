@@ -101,12 +101,15 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
   const [nameOptions, setNameOptions] = useState<any>();
   const [descriptionOptions, setDescriptionOptions] = useState<any>();
 
+  const family = JSON.parse(families[0])
+
   const fetchOptions = async () => {
+
     try {
       const res = await axios({
         method: "get",
         // corregir cuando se pueda ver varias familias
-        url: `${REACT_APP_API_URL}bills?family=${families[0]}`,
+        url: `${REACT_APP_API_URL}bills?family=${family._id}`,
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -182,7 +185,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
         other={{ select: true, variant: "outlined" }}
       >
         {/* hacer fetch de las familias disponibles */}
-        <MenuItem value="63876305442ba7812c757bd3">simosa-medina</MenuItem>
+        <MenuItem value={family._id}>{family.name}</MenuItem>
       </TextFieldContainer>
 
       <ButtonGroup

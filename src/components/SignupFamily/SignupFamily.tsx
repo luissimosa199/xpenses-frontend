@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent } from "react";
 import { Button, ButtonGroup, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { StyledForm } from "../../components/containers/AuthForm.styled";
@@ -7,7 +7,6 @@ import * as Yup from "yup";
 import PasswordInput from "../../components/PasswordInput/PasswordInput";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { UserContext } from "../../context/UserContext";
 const { REACT_APP_API_URL } = process.env;
 
 interface SignupFamilyProps {}

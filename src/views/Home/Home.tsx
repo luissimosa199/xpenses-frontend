@@ -18,10 +18,12 @@ const fetchBills = async () => {
   const token = localStorage.getItem("token");
   const families = JSON.parse(`${localStorage.getItem("families")}`);
 
+  const family = JSON.parse(families[0])
+
   try {
     const res = await axios({
       method: "get",
-      url: `${REACT_APP_API_URL}bills?family=${families[0]}`,
+      url: `${REACT_APP_API_URL}bills?family=${family._id}`,
       headers: {
         Authorization: "Bearer " + token,
       },
