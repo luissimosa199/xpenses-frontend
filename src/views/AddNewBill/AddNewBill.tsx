@@ -101,7 +101,7 @@ const AddNewBill: FunctionComponent<AddNewBillProps> = () => {
   const [nameOptions, setNameOptions] = useState<any>();
   const [descriptionOptions, setDescriptionOptions] = useState<any>();
 
-  const family = JSON.parse(families[0])
+  const family = JSON.parse(families)
 
   const fetchOptions = async () => {
 
